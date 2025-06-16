@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={styles.container}>
+      <h1 style={styles.title}>💰 Expense Tracker</h1>
+      <p style={styles.subtitle}>간단한 JWT 기반 가계부 프로젝트입니다.</p>
+      
+      <div style={styles.buttonGroup}>
+        <button style={styles.button} onClick={() => navigate('/signup')}>회원가입</button>
+        <button style={styles.button} onClick={() => navigate('/login')}>로그인</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
+}
+
+const styles = {
+  container: {
+    textAlign: 'center',
+    marginTop: '10%',
+    fontFamily: 'Arial, sans-serif',
+  },
+  title: {
+    fontSize: '2.5rem',
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: '1.2rem',
+    color: '#666',
+    marginBottom: '2rem',
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '1rem',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    backgroundColor: '#4caf50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+  }
 }
 
 export default App
