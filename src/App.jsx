@@ -1,8 +1,14 @@
 import './App.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 
 function App() {
   const navigate = useNavigate()
+  const token = localStorage.getItem('token')
+
+  // 인증 사용자 상태 전역 관리
+  if (token) {
+    return <Navigate to="/login" />
+  }
 
   return (
     <div style={styles.container}>
