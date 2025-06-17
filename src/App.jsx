@@ -1,57 +1,28 @@
-import './App.css'
-import { useNavigate, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Expenses from './pages/Expenses';
+import { isLoggedIn } from './utils/auth';
 
-function App() {
-  const navigate = useNavigate()
-  const token = localStorage.getItem('token')
-
-  // 인증 사용자 상태 전역 관리
-  if (token) {
-    return <Navigate to="/login" />
-  }
-
+export default function App() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>💰 Expense Tracker</h1>
-      <p style={styles.subtitle}>간단한 JWT 기반 가계부 프로젝트입니다.</p>
-      
-      <div style={styles.buttonGroup}>
-        <button style={styles.button} onClick={() => navigate('/signup')}>회원가입</button>
-        <button style={styles.button} onClick={() => navigate('/login')}>로그인</button>
+    <Router>
+      <Header />
+      <div style={{ padding: '20px' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/expenses"
+            element={isLoggedIn() ? <Expenses /> : <Login />}
+          />
+          {/* 예: 마이페이지 구현 시 아래처럼 추가 가능 */}
+          {/* <Route path="/mypage" element={<MyPage />} /> */}
+        </Routes>
       </div>
-    </div>
-  )
+    </Router>
+  );
 }
-
-const styles = {
-  container: {
-    textAlign: 'center',
-    marginTop: '10%',
-    fontFamily: 'Arial, sans-serif',
-  },
-  title: {
-    fontSize: '2.5rem',
-    color: '#333',
-  },
-  subtitle: {
-    fontSize: '1.2rem',
-    color: '#666',
-    marginBottom: '2rem',
-  },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '1rem',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    backgroundColor: '#4caf50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-  }
-}
-
-export default App
