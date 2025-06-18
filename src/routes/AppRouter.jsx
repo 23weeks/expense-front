@@ -4,11 +4,11 @@ import Home from '../pages/Home'
 import Signup from '../pages/Signup'
 import Login from '../pages/Login'
 import Expenses from '../pages/Expenses'
-import { isLoggedIn } from '../api/auth'
-
-function PrivateRoute({ children }) {
-  return isLoggedIn() ? children : <Navigate to="/login" />
-} 
+import AddExpense from '../pages/AddExpense'
+import MyPage from '../pages/MyPage'
+import Settings from '../pages/Settings'
+import Stats from '../pages/Stats'
+import PrivateRoute from './PrivateRoute'
 
 function AppRouter() {
     return (
@@ -21,6 +21,38 @@ function AppRouter() {
                 element={
                     <PrivateRoute>
                         <Expenses />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/expenses/add"
+                element={
+                    <PrivateRoute>
+                        <AddExpense />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/stats"
+                element={
+                    <PrivateRoute>
+                        <Stats />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/mypage"
+                element={
+                    <PrivateRoute>
+                        <MyPage />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/settings"
+                element={
+                    <PrivateRoute>
+                        <Settings />
                     </PrivateRoute>
                 }
             />

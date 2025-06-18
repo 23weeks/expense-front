@@ -1,12 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { isLoggedIn } from '../utils/auth';
+import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext' 
 
 export default function Header() {
-  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-  };
+    logout()
+    navigate('/')
+  }
 
   return (
     <header style={styles.header}>
@@ -14,7 +17,7 @@ export default function Header() {
         My Account Book
       </Link>
       <nav>
-        {isLoggedIn() ? (
+        {isAuthenticated ? (
           <>
             <Link to="/expenses" style={styles.link}>지출목록</Link>
             <Link to="/mypage" style={styles.link}>마이페이지</Link>
@@ -28,7 +31,7 @@ export default function Header() {
         )}
       </nav>
     </header>
-  );
+  )
 }
 
 const styles = {
@@ -55,4 +58,4 @@ const styles = {
     border: 'none',
     cursor: 'pointer',
   },
-};
+}
